@@ -43,6 +43,45 @@ a{color:inherit;text-decoration:none}.app{min-height:100vh}
 .footer{border-top:1px solid var(--line);padding:28px 0;color:#656e68;font:9px ui-monospace,monospace;letter-spacing:.1em;display:flex;justify-content:space-between;gap:20px}.help{position:fixed;right:18px;bottom:18px;width:32px;height:32px;border:1px solid #444a46;background:#202420;color:#dfe3df;border-radius:50%;display:grid;place-items:center;z-index:40;font-weight:800}
 .toast{position:fixed;right:20px;bottom:62px;background:#111713;border:1px solid #445044;padding:12px 15px;border-radius:12px;display:none;z-index:50;color:#dce3dd;font-size:11px}.toast.show{display:block}
 .login{background:transparent!important;border:0!important;color:#b4bbb5!important;padding:0!important;border-radius:0!important;font-size:13px!important;font-weight:500!important}.login:hover{color:var(--text)!important}.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.76);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}.auth-overlay.show{display:flex}.auth-card{width:min(440px,100%);background:#0b0e0c;border:1px solid #303832;border-radius:24px;padding:28px;box-shadow:0 30px 100px rgba(0,0,0,.58);position:relative}.auth-card.signup-card{border-color:#41521f;background:linear-gradient(145deg,#0d120b,#0b0e0c)}.auth-card.login-card{border-color:#303832}.auth-card h2{font-size:32px;letter-spacing:-.05em;margin:16px 0 7px}.auth-close{position:absolute;right:17px;top:15px;background:transparent!important;border:0!important;color:#9da69f;font-size:25px;padding:0!important}.auth-switch{border:0;background:transparent;color:var(--lime);font-size:11px;margin-top:15px;padding:0;cursor:pointer}.auth-mode-tag{display:inline-flex;padding:6px 9px;border-radius:999px;font:9px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}.auth-mode-tag.login-tag{background:#171b18;color:#aab2ac;border:1px solid #2d332f}.auth-mode-tag.signup-tag{background:#182109;color:#d4ff73;border:1px solid #3b4f20}.auth-feature{display:flex;gap:8px;align-items:center;margin-top:12px;color:#8f9891;font-size:10px}.auth-feature:before{content:"✓";color:var(--lime);font-weight:800}
+.auth-overlay{background:rgba(2,4,3,.88);padding:28px;z-index:60}
+.auth-card{width:min(1060px,100%);min-height:min(680px,calc(100vh - 56px));padding:0;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr);overflow:hidden;border-radius:30px;border-color:#303832;background:#0b0e0c;box-shadow:0 36px 120px rgba(0,0,0,.72)}
+.auth-card.signup-card{border-color:#43572b}
+.auth-visual{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;min-height:100%;padding:38px;background:#101510}
+.auth-visual:before,.auth-visual:after{content:"";position:absolute;z-index:-1;pointer-events:none}
+.auth-visual:before{inset:0;background:radial-gradient(ellipse at 20% 5%,rgba(184,255,0,.19),transparent 43%),radial-gradient(ellipse at 85% 76%,rgba(104,145,39,.12),transparent 40%),linear-gradient(145deg,#172018 0%,#0e130f 55%,#090c0a 100%)}
+.auth-visual:after{width:520px;height:520px;right:-170px;top:12%;border-radius:50%;border:1px solid rgba(211,255,139,.11);box-shadow:0 0 0 38px rgba(211,255,139,.025),0 0 0 82px rgba(211,255,139,.02),0 0 100px rgba(184,255,0,.09)}
+.auth-visual-top,.auth-visual-bottom,.auth-visual-copy,.auth-steps{position:relative;z-index:1}
+.auth-visual-brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:750;letter-spacing:-.03em}
+.auth-visual-brand .mark{width:32px;height:32px;border-radius:10px;font-size:14px}
+.auth-visual-kicker{margin-top:42px;color:#d3ff83;font:10px ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}
+.auth-visual h3{max-width:470px;margin:16px 0 14px;font-size:clamp(38px,4.2vw,58px);line-height:.99;letter-spacing:-.065em}
+.auth-visual p{max-width:380px;margin:0;color:#a0aaa1;font-size:13px;line-height:1.75}
+.auth-orbit{position:absolute;right:7%;top:25%;width:min(34vw,310px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 48% 48%,rgba(184,255,0,.23),rgba(184,255,0,.055) 24%,transparent 65%);filter:blur(1px)}
+.auth-steps{display:flex;gap:0;margin-top:48px}
+.auth-step{flex:1;padding:14px 10px 0 0;border-top:1px solid rgba(219,232,218,.17);color:#79837b;font:9px ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase}
+.auth-step span{display:block;margin-bottom:9px;color:#68736a}
+.auth-step.active{border-color:var(--lime);color:#d8e5d4}
+.auth-step.active span{color:var(--lime)}
+.auth-content{position:relative;display:flex;flex-direction:column;justify-content:center;padding:66px clamp(32px,5vw,72px);background:linear-gradient(160deg,#0d100e,#0a0c0b 78%)}
+.auth-close{right:22px;top:20px;width:36px;height:36px;border:1px solid #2a312c!important;border-radius:50%;font-size:21px;line-height:1}
+.auth-content .auth-mode-tag{margin-bottom:22px}
+.auth-content .auth-mode-tag.login-tag{background:#151a16;color:#acb5ad;border-color:#2c352e}
+.auth-content .auth-mode-tag.signup-tag{background:#17210d;color:#d8ff8c;border-color:#43572b}
+.auth-card h2{font-size:clamp(30px,3vw,40px);line-height:1.05;letter-spacing:-.055em;margin:0 0 12px}
+.auth-content .muted{max-width:370px;font-size:13px;color:#929b94}
+.auth-content form{margin-top:30px}
+.auth-content .field label{color:#a3ada5;font-size:10px;letter-spacing:.1em}
+.auth-content .field input{padding:14px 15px;border-color:#303832;border-radius:11px;background:#090c0a;font-size:13px}
+.auth-content .field input:focus{border-color:#90b94c;box-shadow:0 0 0 3px rgba(184,255,0,.08)}
+.auth-content .btn.primary{min-height:48px;border-radius:11px;font-size:13px}
+.auth-content .auth-switch{font-size:12px;margin-top:22px;text-align:left}
+.auth-content .auth-footnote{margin-top:22px!important;padding-top:18px;border-top:1px solid #222923;font-size:10px!important;color:#737e75}
+.auth-content #authFeatures{margin-top:2px}
+.auth-content .auth-feature{font-size:11px;color:#a1aaa2}
+.signup-card .auth-visual:before{background:radial-gradient(ellipse at 20% 5%,rgba(184,255,0,.23),transparent 43%),radial-gradient(ellipse at 84% 76%,rgba(126,177,48,.16),transparent 40%),linear-gradient(145deg,#182015 0%,#0e130f 55%,#090c0a 100%)}
+@media(max-width:760px){.auth-overlay{padding:12px}.auth-card{grid-template-columns:1fr;grid-template-rows:auto 1fr;min-height:min(760px,calc(100vh - 24px));overflow:auto;border-radius:24px}.auth-visual{min-height:245px;padding:24px}.auth-visual-kicker{margin-top:26px}.auth-visual h3{max-width:440px;font-size:36px;margin:10px 0}.auth-visual p{font-size:11px;max-width:440px}.auth-orbit{width:220px;right:-40px;top:10%}.auth-steps{margin-top:24px}.auth-step{font-size:8px}.auth-content{padding:38px 28px 30px}.auth-content .auth-mode-tag{margin-bottom:16px}.auth-content form{margin-top:22px}}
+@media(max-width:440px){.auth-visual{min-height:228px;padding:20px}.auth-visual-brand{font-size:12px}.auth-visual h3{font-size:31px}.auth-visual p{font-size:10px}.auth-content{padding:34px 22px 25px}.auth-card h2{font-size:30px}}
+
 @media(max-width:900px){.header-inner,.container{width:min(100% - 32px,var(--max))}.main-nav{display:none}.header-actions{margin-left:auto}.login{display:none}.hero{padding-top:42px}.hero-grid{grid-template-columns:1fr;gap:30px}.hero h1{font-size:clamp(46px,13vw,70px)}.hero-panel{min-height:260px}.cards{grid-template-columns:repeat(2,1fr)}.grid2,.buyer-grid,.insights{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}.result-grid{grid-template-columns:1fr}.footer{flex-direction:column}}
 @media(max-width:520px){.cards{grid-template-columns:1fr}.header-inner{width:calc(100% - 24px)}.brand b{font-size:16px}.start{padding:10px 15px}.hero{padding-top:34px}.hero h1{font-size:48px}.hero p{font-size:14px}.section{padding-bottom:45px}}
 </style>
@@ -168,22 +207,38 @@ a{color:inherit;text-decoration:none}.app{min-height:100vh}
 <button class="help" title="Help">?</button>
 <div class="toast" id="toast"></div>
 <div class="auth-overlay" id="authOverlay">
- <div class="auth-card login-card" id="authCard">
-  <button class="auth-close" onclick="closeAuth()">×</button>
-  <div id="authTag" class="auth-mode-tag login-tag">Returning user</div>
-  <h2 id="authTitle">Welcome back.</h2>
-  <p class="muted" id="authCopy">Enter your email and we'll send you a secure one-time sign-in link.</p>
-  <form id="authForm">
-   <div class="field"><label>Email</label><input id="authEmail" type="email" autocomplete="email" required placeholder="you@company.com"></div>
-   <div id="companyField" class="field" style="margin-top:12px;display:none"><label>Company / workspace name</label><input id="companyName" type="text" autocomplete="organization" placeholder="Your manufacturing business"></div>
-   <button class="btn primary" style="width:100%;margin-top:16px" id="authSubmit" type="submit">Send sign-in link →</button>
-  </form>
-  <div id="authFeatures" style="display:none">
-   <div class="auth-feature">Create your WasteXOS workspace without a password</div>
-   <div class="auth-feature">Use your email to verify access securely</div>
-  </div>
-  <button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">New to WasteXOS? Start free</button>
-  <div class="muted" style="font-size:10px;margin-top:14px">A secure email link will be sent. Check your inbox to continue.</div>
+ <div class="auth-card login-card" id="authCard" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <section class="auth-visual" aria-label="WasteXOS account setup">
+   <div class="auth-visual-top">
+    <div class="auth-visual-brand"><div class="mark">W</div><span>Waste<span style="color:var(--lime)">XOS</span></span></div>
+    <div class="auth-visual-kicker" id="authVisualKicker">Industrial resource intelligence</div>
+    <h3 id="authVisualTitle">A clearer path from scrap to value.</h3>
+    <p id="authVisualCopy">Bring every material stream into focus. WasteXOS helps your team recover value and learn from what leaves the line.</p>
+   </div>
+   <div class="auth-orbit" aria-hidden="true"></div>
+   <div class="auth-steps" aria-label="Account progress">
+    <div class="auth-step active" id="authStepOne"><span>01 / ACCESS</span>Email</div>
+    <div class="auth-step" id="authStepTwo"><span>02 / CONTINUE</span>Workspace</div>
+    <div class="auth-step"><span>03 / RECOVER</span>Value</div>
+   </div>
+  </section>
+  <section class="auth-content">
+   <button class="auth-close" aria-label="Close" onclick="closeAuth()">×</button>
+   <div id="authTag" class="auth-mode-tag login-tag">Returning user</div>
+   <h2 id="authTitle">Welcome back.</h2>
+   <p class="muted" id="authCopy">Enter your email and we'll send you a secure one-time sign-in link.</p>
+   <form id="authForm">
+    <div class="field"><label for="authEmail">Work email</label><input id="authEmail" type="email" autocomplete="email" required placeholder="you@company.com"></div>
+    <div id="companyField" class="field" style="margin-top:14px;display:none"><label for="companyName">Company / workspace name</label><input id="companyName" type="text" autocomplete="organization" placeholder="Your manufacturing business"></div>
+    <button class="btn primary" style="width:100%;margin-top:18px" id="authSubmit" type="submit">Send sign-in link →</button>
+   </form>
+   <div id="authFeatures" style="display:none">
+    <div class="auth-feature">Create your WasteXOS workspace without a password</div>
+    <div class="auth-feature">Verify access with your email</div>
+   </div>
+   <button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">New to WasteXOS? Start free</button>
+   <div class="muted auth-footnote">A secure email link will be sent. Check your inbox to continue.</div>
+  </section>
  </div>
 </div>
 </div>
@@ -217,6 +272,12 @@ function updateAuthUI(){
  document.getElementById("authSubmit").textContent=signup?"Create workspace →":"Send sign-in link →";
  document.getElementById("authFeatures").style.display=signup?"block":"none";
  document.getElementById("authSwitch").textContent=signup?"Already have a workspace? Log in":"New to WasteXOS? Start free";
+ document.getElementById("companyName").required=signup;
+ document.getElementById("authVisualKicker").textContent=signup?"Workspace setup · 01 of 03":"Industrial resource intelligence";
+ document.getElementById("authVisualTitle").textContent=signup?"Build a better system for your material streams.":"A clearer path from scrap to value.";
+ document.getElementById("authVisualCopy").textContent=signup?"Create your company workspace and bring recovery decisions into one considered, connected flow.":"Bring every material stream into focus. WasteXOS helps your team recover value and learn from what leaves the line.";
+ document.getElementById("authStepOne").classList.toggle("active",!signup);
+ document.getElementById("authStepTwo").classList.toggle("active",signup);
 }
 document.getElementById("authForm").addEventListener("submit",async e=>{
  e.preventDefault();
