@@ -281,8 +281,8 @@ document.getElementById("authForm").addEventListener("submit",async e=>{
  const btn=document.getElementById("authSubmit");btn.disabled=true;btn.textContent="Sending…";
  try{
   const options=authMode==="signup"
-   ? {shouldCreateUser:true,data:{company_name:company}}
-   : {shouldCreateUser:false};
+   ? {shouldCreateUser:true,data:{company_name:company},emailRedirectTo:window.location.origin}
+   : {shouldCreateUser:false,emailRedirectTo:window.location.origin};
   const {error}=await db.auth.signInWithOtp({email,options});
   if(error)throw error;
   closeAuth();
