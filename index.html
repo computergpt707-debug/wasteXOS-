@@ -81,6 +81,15 @@ a{color:inherit;text-decoration:none}.app{min-height:100vh}
 .signup-card .auth-visual:before{background:radial-gradient(ellipse at 20% 5%,rgba(184,255,0,.23),transparent 43%),radial-gradient(ellipse at 84% 76%,rgba(126,177,48,.16),transparent 40%),linear-gradient(145deg,#182015 0%,#0e130f 55%,#090c0a 100%)}
 @media(max-width:760px){.auth-overlay{padding:12px}.auth-card{grid-template-columns:1fr;grid-template-rows:auto 1fr;min-height:min(760px,calc(100vh - 24px));overflow:auto;border-radius:24px}.auth-visual{min-height:245px;padding:24px}.auth-visual-kicker{margin-top:26px}.auth-visual h3{max-width:440px;font-size:36px;margin:10px 0}.auth-visual p{font-size:11px;max-width:440px}.auth-orbit{width:220px;right:-40px;top:10%}.auth-steps{margin-top:24px}.auth-step{font-size:8px}.auth-content{padding:38px 28px 30px}.auth-content .auth-mode-tag{margin-bottom:16px}.auth-content form{margin-top:22px}}
 @media(max-width:440px){.auth-visual{min-height:228px;padding:20px}.auth-visual-brand{font-size:12px}.auth-visual h3{font-size:31px}.auth-visual p{font-size:10px}.auth-content{padding:34px 22px 25px}.auth-card h2{font-size:30px}}
+/* Keep both auth modes inside the viewport; let the form area scroll when needed. */
+.auth-card{max-height:calc(100vh - 56px);grid-template-rows:minmax(0,1fr)}
+.auth-content{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.auth-content form{flex-shrink:0}
+@media(max-width:760px){
+ .auth-card{max-height:calc(100vh - 24px);grid-template-rows:auto minmax(0,1fr)}
+ .auth-visual{flex-shrink:0}
+ .auth-content{min-height:0}
+}
 
 @media(max-width:900px){.header-inner,.container{width:min(100% - 32px,var(--max))}.main-nav{display:none}.header-actions{margin-left:auto}.login{display:none}.hero{padding-top:42px}.hero-grid{grid-template-columns:1fr;gap:30px}.hero h1{font-size:clamp(46px,13vw,70px)}.hero-panel{min-height:260px}.cards{grid-template-columns:repeat(2,1fr)}.grid2,.buyer-grid,.insights{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}.result-grid{grid-template-columns:1fr}.footer{flex-direction:column}}
 @media(max-width:520px){.cards{grid-template-columns:1fr}.header-inner{width:calc(100% - 24px)}.brand b{font-size:16px}.start{padding:10px 15px}.hero{padding-top:34px}.hero h1{font-size:48px}.hero p{font-size:14px}.section{padding-bottom:45px}}
