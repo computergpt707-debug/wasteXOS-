@@ -3,76 +3,171 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>WasteXOS — Industrial Resource Intelligence</title>
+<title>WasteXOS — Turn Industrial Waste into Industrial Value</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#0a0d0c;--panel:#111614;--panel2:#151b18;--line:#26302b;--text:#f2f6f3;--muted:#8d9992;--lime:#b8ff3d;--lime2:#8fdb20;--danger:#ff6b6b;--blue:#67b7ff;--radius:18px}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#172218 0,#0a0d0c 38%);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
-button,input,select{font:inherit}button{cursor:pointer}.app{display:flex;min-height:100vh}.side{width:250px;background:#0c100e;border-right:1px solid var(--line);padding:24px 16px;position:fixed;inset:0 auto 0 0;z-index:5}.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 30px}.mark{width:34px;height:34px;border-radius:10px;background:var(--lime);color:#0b1009;display:grid;place-items:center;font-weight:900}.brand b{font-size:18px}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:2px}.nav{display:grid;gap:6px}.nav button{background:transparent;border:0;color:#aeb8b2;text-align:left;padding:12px 13px;border-radius:12px;display:flex;gap:12px;align-items:center}.nav button:hover,.nav button.active{background:#151c18;color:var(--text)}.nav button.active{box-shadow:inset 3px 0 0 var(--lime)}.bottom{position:absolute;bottom:24px;left:16px;right:16px}.status{border:1px solid var(--line);background:#111713;border-radius:14px;padding:12px;color:var(--muted);font-size:12px}.dot{display:inline-block;width:7px;height:7px;background:var(--lime);border-radius:50%;margin-right:6px}.main{margin-left:250px;width:calc(100% - 250px);padding:30px 34px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}.eyebrow{color:var(--lime);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.top h1{margin:5px 0 0;font-size:28px}.user{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:8px 13px;color:var(--muted);font-size:12px}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(135deg,#151d17,#0e130f);border:1px solid var(--line);border-radius:24px;padding:28px;display:flex;justify-content:space-between;gap:25px;align-items:center;margin-bottom:18px}.hero h2{font-size:30px;margin:5px 0 8px;max-width:680px}.hero p{color:var(--muted);max-width:700px;line-height:1.6}.btn{border:1px solid var(--line);background:#18201b;color:var(--text);padding:11px 15px;border-radius:11px;font-weight:700}.btn.primary{background:var(--lime);color:#0b1009;border-color:var(--lime)}.btn.primary:hover{background:#c7ff67}.btn.ghost:hover{border-color:#526258}.actions{display:flex;gap:10px;flex-wrap:wrap}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.metric,.card{background:rgba(17,22,20,.88);border:1px solid var(--line);border-radius:18px}.metric{padding:18px}.metric span{color:var(--muted);font-size:12px}.metric strong{display:block;font-size:25px;margin-top:8px}.metric em{font-style:normal;color:var(--lime);font-size:11px}.grid2{display:grid;grid-template-columns:1.3fr .7fr;gap:14px}.card{padding:20px}.card h3{margin:0 0 15px;font-size:15px}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px 8px;border-bottom:1px solid #202722;font-size:12px}.table th{color:var(--muted);font-weight:600}.pill{display:inline-flex;padding:5px 8px;border-radius:999px;background:#19221c;color:#b7c2bb;font-size:10px}.pill.green{color:#c9ff86;background:#182516}.pill.blue{color:#8fcbff;background:#14202a}.empty{padding:30px;text-align:center;color:var(--muted)}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}.field input,.field select{width:100%;padding:12px;background:#0c110e;border:1px solid var(--line);border-radius:10px;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:#5b735e}.full{grid-column:1/-1}.result{margin-top:18px;padding:18px;border:1px solid #385027;background:#111b0f;border-radius:16px;display:none}.result.show{display:block}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.result-box{background:#0b100d;border:1px solid var(--line);padding:13px;border-radius:12px}.result-box span{font-size:10px;color:var(--muted)}.result-box strong{display:block;margin-top:5px}.buyer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.buyer{padding:18px}.buyer h4{margin:0 0 5px}.buyer .price{font-size:24px;font-weight:800;margin:15px 0}.buyer small{color:var(--muted)}.search{width:100%;padding:12px 14px;background:#0c110e;border:1px solid var(--line);border-radius:10px;color:var(--text);margin-bottom:15px}.chart{height:220px;display:flex;align-items:end;gap:12px;padding:10px 5px 25px}.bar{flex:1;background:linear-gradient(to top,var(--lime2),var(--lime));border-radius:7px 7px 2px 2px;min-height:20px;position:relative}.bar span{position:absolute;bottom:-21px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted)}.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.insight{padding:18px;border-left:3px solid var(--lime)}.insight .tag{font-size:10px;color:var(--lime);font-weight:800}.insight p{color:#c4ccc7;font-size:13px;line-height:1.5}.toast{position:fixed;right:22px;bottom:22px;background:#18221b;border:1px solid #445b48;padding:12px 15px;border-radius:12px;display:none;z-index:20}.toast.show{display:block}.mobile{display:none}
-@media(max-width:900px){.side{display:none}.main{margin-left:0;width:100%;padding:20px}.mobile{display:flex;justify-content:space-between;margin-bottom:18px}.metrics{grid-template-columns:repeat(2,1fr)}.grid2,.buyer-grid,.insights{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}.form{grid-template-columns:1fr}.full{grid-column:auto}.result-grid{grid-template-columns:1fr}}
+:root{
+ --bg:#070908;--surface:#0c0f0d;--surface2:#101410;--line:#252b27;
+ --text:#f4f7f4;--muted:#8b938d;--lime:#b8ff00;--lime-soft:#d0ff58;
+ --danger:#ff6b6b;--blue:#72b9ff;--max:1280px;--radius:18px
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.26;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(to bottom,black 0%,transparent 82%);z-index:-1}
+button,input,select{font:inherit}button{cursor:pointer}
+a{color:inherit;text-decoration:none}.app{min-height:100vh}
+.header{height:62px;border-bottom:1px solid var(--line);background:rgba(7,9,8,.82);backdrop-filter:blur(16px);display:flex;align-items:center;position:sticky;top:0;z-index:30}
+.header-inner{width:min(var(--max),calc(100% - 76px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;min-width:max-content}.mark{width:34px;height:34px;border-radius:10px;background:var(--lime);color:#0a0d09;display:grid;place-items:center;font-weight:950;letter-spacing:-.06em}.brand b{font-size:18px;letter-spacing:-.04em}.brand b span{color:var(--lime)}
+.main-nav{display:flex;align-items:center;gap:28px;margin-left:auto}.main-nav a{color:#8d948e;font-size:13px;transition:.2s}.main-nav a:hover,.main-nav a.active{color:var(--text)}
+.header-actions{display:flex;align-items:center;gap:20px}.login{font-size:13px;color:#b4bbb5}.start{border:0;background:var(--lime);color:#0a0d09;padding:11px 20px;border-radius:999px;font-weight:800;font-size:13px}.start:hover{background:var(--lime-soft)}
+.container{width:min(var(--max),calc(100% - 76px));margin:auto}
+.hero{min-height:470px;padding:60px 0 42px;display:flex;align-items:center;position:relative}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);gap:60px;align-items:center;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid #29302b;border-radius:999px;padding:8px 13px;color:#aeb6b0;font:10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.18em;text-transform:uppercase}
+.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px rgba(184,255,0,.7)}
+.hero h1{font-size:clamp(48px,6.4vw,84px);line-height:.94;letter-spacing:-.07em;margin:25px 0 24px;max-width:760px;font-weight:800}.hero h1 .lime{color:var(--lime)}
+.hero p{max-width:650px;color:#8e9891;font-size:16px;line-height:1.65;margin:0 0 30px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn{border:1px solid #303733;background:transparent;color:var(--text);padding:13px 18px;border-radius:999px;font-weight:750;font-size:13px}.btn.primary{background:var(--lime);color:#0a0d09;border-color:var(--lime)}.btn:hover{border-color:#59625c}.btn.primary:hover{background:var(--lime-soft)}
+.hero-panel{border:1px solid #222823;background:linear-gradient(145deg,rgba(18,23,19,.92),rgba(8,10,9,.72));border-radius:26px;padding:24px;position:relative;overflow:hidden;min-height:320px}.hero-panel:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-130px;top:-150px;background:rgba(184,255,0,.08);filter:blur(10px)}
+.panel-label{font:10px ui-monospace,monospace;color:#8d968f;letter-spacing:.16em;text-transform:uppercase}.panel-value{font-size:42px;font-weight:800;letter-spacing:-.05em;margin:28px 0 4px}.panel-value span{color:var(--lime)}.panel-copy{color:#7e8781;font-size:12px;line-height:1.6;max-width:290px}.mini-bars{display:flex;align-items:end;gap:9px;height:92px;margin-top:26px}.mini-bars i{display:block;flex:1;border:1px solid #354036;background:linear-gradient(to top,rgba(184,255,0,.15),rgba(184,255,0,.55));border-radius:5px 5px 2px 2px}.mini-bars i:nth-child(1){height:34%}.mini-bars i:nth-child(2){height:52%}.mini-bars i:nth-child(3){height:44%}.mini-bars i:nth-child(4){height:73%}.mini-bars i:nth-child(5){height:61%}.mini-bars i:nth-child(6){height:88%}
+.signal{position:absolute;right:22px;bottom:22px;font:9px ui-monospace,monospace;color:#738078;letter-spacing:.14em}.signal b{color:var(--lime)}
+.section{padding:28px 0 70px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}.section-head h2{font-size:28px;letter-spacing:-.04em;margin:5px 0}.section-head p{color:var(--muted);font-size:13px;max-width:600px;margin:0;line-height:1.6}
+.workspace-nav{display:flex;gap:8px;overflow:auto;padding:5px 0 18px;scrollbar-width:none}.workspace-nav::-webkit-scrollbar{display:none}.workspace-nav button{white-space:nowrap;border:1px solid #282f2a;background:#0d110f;color:#8f9891;padding:10px 14px;border-radius:999px;font-size:11px}.workspace-nav button.active,.workspace-nav button:hover{color:#0a0d09;background:var(--lime);border-color:var(--lime)}
+.page{display:none}.page.active{display:block}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{border:1px solid var(--line);background:rgba(12,15,13,.86);border-radius:18px;padding:19px}.metric span{font-size:10px;color:#747d77;text-transform:uppercase;letter-spacing:.1em}.metric strong{display:block;font-size:27px;letter-spacing:-.04em;margin-top:9px}.metric em{display:block;font-style:normal;color:var(--lime);font-size:10px;margin-top:4px}
+.grid2{display:grid;grid-template-columns:1.3fr .7fr;gap:12px;margin-top:12px}.card h3{font-size:13px;margin:0 0 15px}.muted{color:var(--muted);font-size:12px;line-height:1.6}
+.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px 7px;border-bottom:1px solid #202520;font-size:11px}.table th{color:#747d77;font-weight:600;text-transform:uppercase;letter-spacing:.08em}.pill{display:inline-flex;padding:5px 8px;border-radius:999px;background:#171d19;color:#aeb7b0;font-size:9px}.pill.green{color:#cfff74;background:#14200d}.pill.blue{color:#8bc7ff;background:#101b25}.empty{padding:30px;text-align:center;color:#6f7772;font-size:12px}
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.field label{display:block;color:#7f8982;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}.field input,.field select{width:100%;padding:12px;background:#080b09;border:1px solid #29302b;border-radius:10px;color:var(--text);outline:none}.field input:focus,.field select:focus{border-color:#60705f}.full{grid-column:1/-1}.result{margin-top:18px;padding:18px;border:1px solid #34452a;background:#0d130b;border-radius:16px;display:none}.result.show{display:block}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.result-box{background:#080b09;border:1px solid var(--line);padding:13px;border-radius:12px}.result-box span{font-size:9px;color:#778079;text-transform:uppercase}.result-box strong{display:block;margin-top:5px;font-size:14px}
+.buyer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.buyer h4{margin:10px 0 5px;font-size:15px}.buyer .price{font-size:23px;font-weight:800;margin:15px 0;letter-spacing:-.04em}.buyer small{color:#7f8881;font-size:10px}.search{width:100%;padding:12px 14px;background:#080b09;border:1px solid #29302b;border-radius:10px;color:var(--text);margin-bottom:15px;outline:none}
+.chart{height:220px;display:flex;align-items:end;gap:12px;padding:10px 5px 25px}.bar{flex:1;background:linear-gradient(to top,#7ebc16,var(--lime));border-radius:7px 7px 2px 2px;min-height:20px;position:relative;opacity:.9}.bar span{position:absolute;bottom:-21px;left:50%;transform:translateX(-50%);font-size:9px;color:#747d77}
+.insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{border-left:2px solid var(--lime)}.insight .tag{font-size:9px;color:var(--lime);font-weight:800;letter-spacing:.13em}.insight p{color:#b8c0ba;font-size:12px;line-height:1.55}
+.footer{border-top:1px solid var(--line);padding:28px 0;color:#656e68;font:9px ui-monospace,monospace;letter-spacing:.1em;display:flex;justify-content:space-between;gap:20px}.help{position:fixed;right:18px;bottom:18px;width:32px;height:32px;border:1px solid #444a46;background:#202420;color:#dfe3df;border-radius:50%;display:grid;place-items:center;z-index:40;font-weight:800}
+.toast{position:fixed;right:20px;bottom:62px;background:#111713;border:1px solid #445044;padding:12px 15px;border-radius:12px;display:none;z-index:50;color:#dce3dd;font-size:11px}.toast.show{display:block}
+@media(max-width:900px){.header-inner,.container{width:min(100% - 32px,var(--max))}.main-nav{display:none}.header-actions{margin-left:auto}.login{display:none}.hero{padding-top:42px}.hero-grid{grid-template-columns:1fr;gap:30px}.hero h1{font-size:clamp(46px,13vw,70px)}.hero-panel{min-height:260px}.cards{grid-template-columns:repeat(2,1fr)}.grid2,.buyer-grid,.insights{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}.result-grid{grid-template-columns:1fr}.footer{flex-direction:column}}
+@media(max-width:520px){.cards{grid-template-columns:1fr}.header-inner{width:calc(100% - 24px)}.brand b{font-size:16px}.start{padding:10px 15px}.hero{padding-top:34px}.hero h1{font-size:48px}.hero p{font-size:14px}.section{padding-bottom:45px}}
 </style>
 </head>
 <body>
 <div class="app">
-<aside class="side">
-<div class="brand"><div class="mark">W</div><div><b>WasteXOS</b><small>INDUSTRIAL INTELLIGENCE</small></div></div>
-<nav class="nav">
-<button class="active" data-page="dashboard">◈ <span>Dashboard</span></button>
-<button data-page="analyze">⌁ <span>Analyze Scrap</span></button>
-<button data-page="marketplace">◇ <span>Marketplace</span></button>
-<button data-page="transactions">▣ <span>Transactions</span></button>
-<button data-page="analytics">◒ <span>Analytics</span></button>
-<button data-page="insights">✦ <span>AI Insights</span></button>
-</nav>
-<div class="bottom"><div class="status"><span class="dot"></span>Supabase connected<br><span style="margin-left:13px">Demo workspace active</span></div></div>
-</aside>
-<main class="main">
-<div class="mobile"><div class="brand"><div class="mark">W</div><b>WasteXOS</b></div><span class="user">Demo workspace</span></div>
-<header class="top"><div><div class="eyebrow">Resource efficiency OS</div><h1 id="pageTitle">Dashboard</h1></div><div class="user">Manufacturing MSME · Demo</div></header>
+<header class="header">
+ <div class="header-inner">
+  <a class="brand" href="#" onclick="go('dashboard');return false"><div class="mark">W</div><b>Waste<span>XOS</span></b></a>
+  <nav class="main-nav">
+   <a href="#workspace" class="active">Platform</a>
+   <a href="#how">How it works</a>
+   <a href="#why">Why it matters</a>
+   <a href="#about">About</a>
+   <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-actions"><a class="login" href="#workspace" onclick="go('dashboard')">Log in</a><button class="start" onclick="go('analyze')">Start free</button></div>
+ </div>
+</header>
 
-<section class="page active" id="dashboard">
-<div class="hero"><div><div class="eyebrow">Turning industrial waste into industrial value</div><h2>See waste. Recover value. Improve production.</h2><p>WasteXOS connects scrap intelligence, recovery opportunities and transaction history in one industrial workflow.</p></div><div class="actions"><button class="btn primary" onclick="go('analyze')">Analyze Scrap →</button></div></div>
-<div class="metrics">
-<div class="metric"><span>Total Scrap Recorded</span><strong id="mScrap">—</strong><em>kg tracked</em></div>
-<div class="metric"><span>Material Recovered</span><strong id="mRecovered">—</strong><em>completed flow</em></div>
-<div class="metric"><span>Recovery Value</span><strong id="mValue">—</strong><em>net estimated</em></div>
-<div class="metric"><span>Transactions</span><strong id="mTx">—</strong><em>recorded</em></div>
-</div>
-<div class="grid2"><div class="card"><h3>Recent transactions</h3><div id="recentTx"></div></div><div class="card"><h3>Material mix</h3><div id="materialMix"></div></div></div>
+<main>
+<section class="hero container" id="top">
+ <div class="hero-grid">
+  <div>
+   <div class="eyebrow">Resource efficiency for MSME manufacturing</div>
+   <h1>Turn Industrial<br>Waste into <span class="lime">Industrial Value.</span></h1>
+   <p>WasteXOS helps manufacturing businesses analyze scrap, recover its value, find better buyers and learn from their waste patterns.</p>
+   <div class="hero-actions">
+    <button class="btn primary" onclick="go('analyze')">Analyze Your Scrap&nbsp; →</button>
+    <button class="btn" onclick="go('marketplace')">Explore Marketplace&nbsp; ↗</button>
+   </div>
+   <div style="margin-top:25px;color:#505951;font:9px ui-monospace,monospace;letter-spacing:.2em">WORK IN SILENCE. WASTE LESS. RECOVER MORE.</div>
+  </div>
+  <div class="hero-panel">
+   <div class="panel-label">WasteXOS resource intelligence</div>
+   <div class="panel-value">Recover <span>more.</span></div>
+   <div class="panel-copy">Analyze → Recover → Record → Learn → Improve</div>
+   <div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+   <div class="signal"><b>●</b> SYSTEM READY</div>
+  </div>
+ </div>
 </section>
 
-<section class="page" id="analyze">
-<div class="card"><div class="eyebrow">Analyze → Recover</div><h2>Analyze Scrap</h2><p style="color:var(--muted)">Record a scrap stream and generate a preliminary recovery assessment. AI identification is not certified.</p>
-<form class="form" id="scrapForm">
-<div class="field"><label>Material</label><select id="material"><option>Aluminium</option><option>Copper</option><option>Steel</option><option>Brass</option><option>Plastic</option></select></div>
-<div class="field"><label>Quantity</label><input id="qty" type="number" min="0" placeholder="e.g. 450" required></div>
-<div class="field"><label>Unit</label><select id="unit"><option>kg</option><option>tonne</option></select></div>
-<div class="field"><label>Condition</label><select id="condition"><option>Clean</option><option>Mixed</option><option>Contaminated</option></select></div>
-<div class="field full"><label>Location</label><input id="location" placeholder="Plant / pickup location"></div>
-<div class="full"><button class="btn primary" type="submit">Run AI Assessment</button></div>
-</form>
-<div class="result" id="analysisResult"></div></div>
+<section class="section container" id="workspace">
+ <div class="section-head"><div><div class="eyebrow">Live workspace</div><h2>Industrial resource intelligence.</h2></div><p>Use the same clean visual system across your operating workflow while keeping the existing Supabase-backed prototype functional.</p></div>
+ <div class="workspace-nav">
+  <button class="active" data-page="dashboard">Dashboard</button>
+  <button data-page="analyze">Analyze Scrap</button>
+  <button data-page="marketplace">Marketplace</button>
+  <button data-page="transactions">Transactions</button>
+  <button data-page="analytics">Analytics</button>
+  <button data-page="insights">AI Insights</button>
+ </div>
+
+ <section class="page active" id="dashboard">
+  <div class="cards">
+   <div class="card metric"><span>Total scrap recorded</span><strong id="mScrap">—</strong><em>kg tracked</em></div>
+   <div class="card metric"><span>Material recovered</span><strong id="mRecovered">—</strong><em>completed flow</em></div>
+   <div class="card metric"><span>Recovery value</span><strong id="mValue">—</strong><em>net estimated</em></div>
+   <div class="card metric"><span>Transactions</span><strong id="mTx">—</strong><em>recorded</em></div>
+  </div>
+  <div class="grid2">
+   <div class="card"><h3>Recent transactions</h3><div id="recentTx"></div></div>
+   <div class="card"><h3>Material mix</h3><div id="materialMix"></div></div>
+  </div>
+ </section>
+
+ <section class="page" id="analyze">
+  <div class="card"><div class="eyebrow">Analyze → Recover</div><h2>Analyze Scrap</h2><p class="muted">Record a scrap stream and generate a preliminary recovery assessment. AI identification is not certified.</p>
+  <form class="form" id="scrapForm">
+   <div class="field"><label>Material</label><select id="material"><option>Aluminium</option><option>Copper</option><option>Steel</option><option>Brass</option><option>Plastic</option></select></div>
+   <div class="field"><label>Quantity</label><input id="qty" type="number" min="0" placeholder="e.g. 450" required></div>
+   <div class="field"><label>Unit</label><select id="unit"><option>kg</option><option>tonne</option></select></div>
+   <div class="field"><label>Condition</label><select id="condition"><option>Clean</option><option>Mixed</option><option>Contaminated</option></select></div>
+   <div class="field full"><label>Location</label><input id="location" placeholder="Plant / pickup location"></div>
+   <div class="full"><button class="btn primary" type="submit">Run AI Assessment</button></div>
+  </form>
+  <div class="result" id="analysisResult"></div></div>
+ </section>
+
+ <section class="page" id="marketplace">
+  <div class="card"><div class="eyebrow">Recover value</div><h2>Marketplace</h2><p class="muted">Compare offers by price, logistics and buyer reliability — not price alone.</p><input class="search" id="buyerSearch" placeholder="Search buyers or material..."><div class="buyer-grid" id="buyers"></div></div>
+ </section>
+
+ <section class="page" id="transactions">
+  <div class="card"><div class="eyebrow">Record → Learn</div><h2>Transactions</h2><p class="muted">Every completed flow becomes historical data for future decisions.</p><div id="txTable"></div></div>
+ </section>
+
+ <section class="page" id="analytics">
+  <div class="card"><div class="eyebrow">Historical performance</div><h2>Analytics</h2><p class="muted">Demo visualization from recorded scrap data.</p><div class="chart" id="chart"></div></div>
+  <div class="cards" style="margin-top:12px"><div class="card metric"><span>Recovery rate</span><strong id="recoveryRate">—</strong></div><div class="card metric"><span>Avg. transaction value</span><strong id="avgValue">—</strong></div><div class="card metric"><span>Tracked materials</span><strong id="materialCount">—</strong></div><div class="card metric"><span>Completed flows</span><strong id="completedCount">—</strong></div></div>
+ </section>
+
+ <section class="page" id="insights">
+  <div class="card"><div class="eyebrow">AI Insights</div><h2>What should you investigate?</h2><p class="muted">Insights are grounded in recorded data. They indicate patterns to investigate, not proof of cause.</p><div class="insights" id="insightsList"></div></div>
+ </section>
 </section>
 
-<section class="page" id="marketplace">
-<div class="card"><div class="eyebrow">Recover value</div><h2>Marketplace</h2><p style="color:var(--muted)">Compare offers by price, logistics and buyer reliability — not price alone.</p><input class="search" id="buyerSearch" placeholder="Search buyers or material..."><div class="buyer-grid" id="buyers"></div></div>
+<section class="section container" id="how">
+ <div class="section-head"><div><div class="eyebrow">How it works</div><h2>One workflow. Five actions.</h2></div></div>
+ <div class="cards">
+  <div class="card"><span class="pill green">01</span><h3 style="margin-top:14px">Analyze</h3><p class="muted">Record scrap material, quantity and condition for a preliminary recovery assessment.</p></div>
+  <div class="card"><span class="pill green">02</span><h3 style="margin-top:14px">Recover</h3><p class="muted">Compare buyer offers using price, logistics and reliability instead of price alone.</p></div>
+  <div class="card"><span class="pill green">03</span><h3 style="margin-top:14px">Record</h3><p class="muted">Turn completed exchanges into structured transaction history.</p></div>
+  <div class="card"><span class="pill green">04</span><h3 style="margin-top:14px">Learn</h3><p class="muted">Use historical data to reveal material patterns and recovery performance.</p></div>
+ </div>
 </section>
 
-<section class="page" id="transactions">
-<div class="card"><div class="eyebrow">Record → Learn</div><h2>Transactions</h2><p style="color:var(--muted)">Every completed flow becomes historical data for future decisions.</p><div id="txTable"></div></div>
+<section class="section container" id="why">
+ <div class="section-head"><div><div class="eyebrow">Why it matters</div><h2>Waste is also a data problem.</h2></div><p>WasteXOS is designed around resource efficiency: measure what is being lost, recover what can still create value, and learn from the record.</p></div>
 </section>
 
-<section class="page" id="analytics">
-<div class="card"><div class="eyebrow">Historical performance</div><h2>Analytics</h2><p style="color:var(--muted)">Demo visualization from recorded scrap data.</p><div class="chart" id="chart"></div></div>
-<div class="metrics"><div class="metric"><span>Recovery rate</span><strong id="recoveryRate">—</strong></div><div class="metric"><span>Avg. transaction value</span><strong id="avgValue">—</strong></div><div class="metric"><span>Tracked materials</span><strong id="materialCount">—</strong></div><div class="metric"><span>Completed flows</span><strong id="completedCount">—</strong></div></div>
+<section class="section container" id="about">
+ <div class="section-head"><div><div class="eyebrow">About WasteXOS</div><h2>Industrial waste → industrial intelligence.</h2></div><p>Built for manufacturing MSMEs that need a practical bridge between scrap measurement, recovery and continuous improvement.</p></div>
 </section>
 
-<section class="page" id="insights">
-<div class="card"><div class="eyebrow">AI Insights</div><h2>What should you investigate?</h2><p style="color:var(--muted)">Insights are grounded in recorded data. They indicate patterns to investigate, not proof of cause.</p><div class="insights" id="insightsList"></div></div>
+<section class="section container" id="contact">
+ <div class="card"><div class="eyebrow">Contact</div><h2>Ready to test the workflow?</h2><p class="muted">Start with a scrap record, compare recovery options and build your first transaction history.</p><button class="btn primary" onclick="go('analyze')">Start with Analyze Scrap →</button></div>
 </section>
 </main>
-</div>
+
+<footer class="footer container" id="footer"><span>WASTEXOS · INDUSTRIAL RESOURCE INTELLIGENCE</span><span>TURN INDUSTRIAL WASTE INTO INDUSTRIAL VALUE.</span></footer>
+<button class="help" title="Help">?</button>
 <div class="toast" id="toast"></div>
+</div>
+
 <script>
 const SUPABASE_URL="https://jwhauvwtzcisetnwedoq.supabase.co";
 const SUPABASE_KEY="sb_publishable_pMYXShFo8psR06Y7f6EoJg_AsCBltsy";
@@ -80,14 +175,13 @@ const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let state={materials:[],buyers:[],scrap:[],transactions:[]};
 
 function go(page){
- document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ document.querySelectorAll(".workspace-nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===page));
- const names={dashboard:"Dashboard",analyze:"Analyze Scrap",marketplace:"Marketplace",transactions:"Transactions",analytics:"Analytics",insights:"AI Insights"};
- document.getElementById("pageTitle").textContent=names[page]||"Dashboard";
- if(page==="marketplace") renderBuyers();
+ document.getElementById("workspace").scrollIntoView({behavior:"smooth",block:"start"});
+ if(page==="marketplace")renderBuyers();
 }
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.page));
+document.querySelectorAll(".workspace-nav button").forEach(b=>b.onclick=()=>go(b.dataset.page));
 
 async function load(){
  try{
@@ -110,45 +204,51 @@ function renderAll(){
  document.getElementById("mRecovered").textContent=Math.round(recovered).toLocaleString("en-IN");
  document.getElementById("mValue").textContent=money(value);
  document.getElementById("mTx").textContent=state.transactions.length;
- document.getElementById("recentTx").innerHTML=state.transactions.slice(0,5).map(x=>`<table class="table"><tr><td><b>${x.transaction_id||"Transaction"}</b><br><span style="color:var(--muted)">${x.material||"Material"} · ${x.agreed_quantity||0} kg</span></td><td style="text-align:right">${money(x.net_recovery_value||x.total_value)}<br><span class="pill green">${x.status||"recorded"}</span></td></tr></table>`).join("")||'<div class="empty">No transactions recorded yet.</div>';
+ document.getElementById("recentTx").innerHTML=state.transactions.slice(0,5).map(x=>'<table class="table"><tr><td><b>'+ (x.transaction_id||"Transaction") +'</b><br><span style="color:var(--muted)">'+(x.material||"Material")+' · '+(x.agreed_quantity||0)+' kg</span></td><td style="text-align:right">'+money(x.net_recovery_value||x.total_value)+'<br><span class="pill green">'+(x.status||"recorded")+'</span></td></tr></table>').join("")||'<div class="empty">No transactions recorded yet.</div>';
  const mix={};state.scrap.forEach(x=>mix[x.material]=(mix[x.material]||0)+Number(x.quantity||0));
  const total=Object.values(mix).reduce((a,b)=>a+b,0)||1;
- document.getElementById("materialMix").innerHTML=Object.entries(mix).map(([k,v])=>`<div style="margin:12px 0"><div style="display:flex;justify-content:space-between;font-size:11px"><span>${k}</span><span>${Math.round(v)} kg</span></div><div style="height:7px;background:#202722;border-radius:99px;margin-top:6px"><div style="width:${v/total*100}%;height:100%;background:var(--lime);border-radius:99px"></div></div></div>`).join("")||'<div class="empty">No scrap records yet.</div>';
+ document.getElementById("materialMix").innerHTML=Object.entries(mix).map(([k,v])=>'<div style="margin:12px 0"><div style="display:flex;justify-content:space-between;font-size:11px"><span>'+k+'</span><span>'+Math.round(v)+' kg</span></div><div style="height:7px;background:#202520;border-radius:99px;margin-top:6px"><div style="width:'+(v/total*100)+'%;height:100%;background:var(--lime);border-radius:99px"></div></div></div>').join("")||'<div class="empty">No scrap records yet.</div>';
  renderTx();renderAnalytics();renderInsights();
 }
 function renderTx(){
- document.getElementById("txTable").innerHTML=state.transactions.length?`<table class="table"><thead><tr><th>ID</th><th>Material</th><th>Quantity</th><th>Net value</th><th>Status</th></tr></thead><tbody>${state.transactions.map(x=>`<tr><td><b>${x.transaction_id||"—"}</b></td><td>${x.material||"—"}</td><td>${x.final_quantity||x.agreed_quantity||0} kg</td><td>${money(x.net_recovery_value||x.total_value)}</td><td><span class="pill ${String(x.status).toLowerCase()==="completed"?"green":"blue"}">${x.status||"recorded"}</span></td></tr>`).join("")}</tbody></table>`:'<div class="empty">No transactions yet.</div>';
+ document.getElementById("txTable").innerHTML=state.transactions.length?'<table class="table"><thead><tr><th>ID</th><th>Material</th><th>Quantity</th><th>Net value</th><th>Status</th></tr></thead><tbody>'+state.transactions.map(x=>'<tr><td><b>'+(x.transaction_id||"—")+'</b></td><td>'+(x.material||"—")+'</td><td>'+(x.final_quantity||x.agreed_quantity||0)+' kg</td><td>'+money(x.net_recovery_value||x.total_value)+'</td><td><span class="pill '+(String(x.status).toLowerCase()==="completed"?"green":"blue")+'">'+(x.status||"recorded")+'</span></td></tr>').join("")+'</tbody></table>':'<div class="empty">No transactions yet.</div>';
 }
 function renderBuyers(){
  const q=(document.getElementById("buyerSearch")?.value||"").toLowerCase();
  const arr=state.buyers.filter(x=>JSON.stringify(x).toLowerCase().includes(q));
- document.getElementById("buyers").innerHTML=arr.map((x,i)=>`<div class="card buyer"><span class="pill green">Verified buyer</span><h4>${x.business_name||x.name||"Buyer"}</h4><small>${x.location||"Regional"} · ${x.materials_accepted||"Scrap materials"}</small><div class="price">${x.price_per_kg?money(x.price_per_kg)+"/kg":"Offer available"}</div><small>Reliability: ${x.reliability_score||"—"} · ${x.distance_km||"—"} km</small><div style="margin-top:15px"><button class="btn primary" onclick="toast('Offer selected for comparison')">Compare offer</button></div></div>`).join("")||'<div class="empty">No matching buyers.</div>';
+ document.getElementById("buyers").innerHTML=arr.map(x=>'<div class="card buyer"><span class="pill green">Verified buyer</span><h4>'+ (x.business_name||x.name||"Buyer") +'</h4><small>'+(x.location||"Regional")+' · '+(x.materials_accepted||"Scrap materials")+'</small><div class="price">'+(x.price_per_kg?money(x.price_per_kg)+"/kg":"Offer available")+'</div><small>Reliability: '+(x.reliability_score||"—")+' · '+(x.distance_km||"—")+' km</small><div style="margin-top:15px"><button class="btn primary" onclick="toast(\'Offer selected for comparison\')">Compare offer</button></div></div>').join("")||'<div class="empty">No matching buyers.</div>';
 }
 document.getElementById("buyerSearch").addEventListener("input",renderBuyers);
 function renderAnalytics(){
- const vals=state.scrap.slice(0,6).reverse();document.getElementById("chart").innerHTML=vals.map(x=>`<div class="bar" style="height:${Math.max(12,Math.min(100,Number(x.quantity||0)/6))}%"><span>${x.material?.slice(0,6)||"scrap"}</span></div>`).join("")||'<div class="empty">Record scrap to populate the chart.</div>';
- const completed=state.transactions.filter(x=>String(x.status).toLowerCase()==="completed");const recovered=completed.reduce((a,x)=>a+Number(x.final_quantity||x.agreed_quantity||0),0);const scrap=state.scrap.reduce((a,x)=>a+Number(x.quantity||0),0);
+ const vals=state.scrap.slice(0,6).reverse();
+ document.getElementById("chart").innerHTML=vals.map(x=>'<div class="bar" style="height:'+Math.max(12,Math.min(100,Number(x.quantity||0)/6))+'%"><span>'+((x.material||"scrap").slice(0,6))+'</span></div>').join("")||'<div class="empty">Record scrap to populate the chart.</div>';
+ const completed=state.transactions.filter(x=>String(x.status).toLowerCase()==="completed");
+ const recovered=completed.reduce((a,x)=>a+Number(x.final_quantity||x.agreed_quantity||0),0);
+ const scrap=state.scrap.reduce((a,x)=>a+Number(x.quantity||0),0);
  document.getElementById("recoveryRate").textContent=(scrap?(recovered/scrap*100).toFixed(1):0)+"%";
  document.getElementById("avgValue").textContent=money(state.transactions.length?state.transactions.reduce((a,x)=>a+Number(x.net_recovery_value||x.total_value||0),0)/state.transactions.length:0);
  document.getElementById("materialCount").textContent=new Set(state.scrap.map(x=>x.material)).size;
  document.getElementById("completedCount").textContent=completed.length;
 }
 function renderInsights(){
- const mix={};state.scrap.forEach(x=>mix[x.material]=(mix[x.material]||0)+Number(x.quantity||0));const top=Object.entries(mix).sort((a,b)=>b[1]-a[1])[0];
- const cards=[];
- if(top) cards.push(["OBSERVED","Your highest recorded scrap stream is "+top[0]+" at "+Math.round(top[1])+" kg."]);
- if(state.transactions.length) cards.push(["RECOVERY","Recent transactions total "+money(state.transactions.reduce((a,x)=>a+Number(x.net_recovery_value||x.total_value||0),0))+" in recorded net recovery value."]);
- if(!state.transactions.length) cards.push(["DATA GAP","There is not enough transaction history yet to make a reliable buyer-performance comparison."]);
+ const mix={};state.scrap.forEach(x=>mix[x.material]=(mix[x.material]||0)+Number(x.quantity||0));
+ const top=Object.entries(mix).sort((a,b)=>b[1]-a[1])[0];const cards=[];
+ if(top)cards.push(["OBSERVED","Your highest recorded scrap stream is "+top[0]+" at "+Math.round(top[1])+" kg."]);
+ if(state.transactions.length)cards.push(["RECOVERY","Recent transactions total "+money(state.transactions.reduce((a,x)=>a+Number(x.net_recovery_value||x.total_value||0),0))+" in recorded net recovery value."]);
+ if(!state.transactions.length)cards.push(["DATA GAP","There is not enough transaction history yet to make a reliable buyer-performance comparison."]);
  cards.push(["NEXT ACTION","Review your largest material stream and compare recovery options before the next pickup."]);
- document.getElementById("insightsList").innerHTML=cards.map(c=>`<div class="card insight"><div class="tag">${c[0]}</div><p>${c[1]}</p></div>`).join("");
+ document.getElementById("insightsList").innerHTML=cards.map(c=>'<div class="card insight"><div class="tag">'+c[0]+'</div><p>'+c[1]+'</p></div>').join("");
 }
 document.getElementById("scrapForm").addEventListener("submit",async e=>{
- e.preventDefault();const material=document.getElementById("material").value;let qty=Number(document.getElementById("qty").value);const unit=document.getElementById("unit").value;const condition=document.getElementById("condition").value;const location=document.getElementById("location").value;
+ e.preventDefault();
+ const material=document.getElementById("material").value;let qty=Number(document.getElementById("qty").value);
+ const unit=document.getElementById("unit").value;const condition=document.getElementById("condition").value;const location=document.getElementById("location").value;
  if(unit==="tonne")qty*=1000;
  const base={Aluminium:190,Copper:650,Steel:45,Brass:420,Plastic:35}[material]||50;
  const multiplier=condition==="Clean"?1:condition==="Mixed"?.86:.68;
  const low=qty*base*multiplier*.9,high=qty*base*multiplier*1.1;
- const res=document.getElementById("analysisResult");res.innerHTML=`<b>Preliminary AI assessment</b><div class="result-grid"><div class="result-box"><span>Likely material</span><strong>${material}</strong></div><div class="result-box"><span>Confidence</span><strong>${condition==="Clean"?"High":"Medium"}</strong></div><div class="result-box"><span>Estimated recovery</span><strong>${money(low)} – ${money(high)}</strong></div></div><div style="color:var(--muted);font-size:12px">Condition-adjusted estimate. Material identification and valuation are preliminary and may require weighing or buyer verification.</div>`;
+ const res=document.getElementById("analysisResult");
+ res.innerHTML='<b>Preliminary AI assessment</b><div class="result-grid"><div class="result-box"><span>Likely material</span><strong>'+material+'</strong></div><div class="result-box"><span>Confidence</span><strong>'+(condition==="Clean"?"High":"Medium")+'</strong></div><div class="result-box"><span>Estimated recovery</span><strong>'+money(low)+' – '+money(high)+'</strong></div></div><div style="color:var(--muted);font-size:12px">Condition-adjusted estimate. Material identification and valuation are preliminary and may require weighing or buyer verification.</div>';
  res.classList.add("show");
  try{const {error}=await db.from("scrap_records").insert([{material,quantity:qty,unit:"kg",condition,location}]);if(error)throw error;toast("Scrap record saved to Supabase");await load()}catch(err){toast("Assessment created; database save needs schema confirmation.")}
 });
