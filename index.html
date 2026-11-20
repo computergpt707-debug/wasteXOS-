@@ -42,7 +42,7 @@ a{color:inherit;text-decoration:none}.app{min-height:100vh}
 .insights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.insight{border-left:2px solid var(--lime)}.insight .tag{font-size:9px;color:var(--lime);font-weight:800;letter-spacing:.13em}.insight p{color:#b8c0ba;font-size:12px;line-height:1.55}
 .footer{border-top:1px solid var(--line);padding:28px 0;color:#656e68;font:9px ui-monospace,monospace;letter-spacing:.1em;display:flex;justify-content:space-between;gap:20px}.help{position:fixed;right:18px;bottom:18px;width:32px;height:32px;border:1px solid #444a46;background:#202420;color:#dfe3df;border-radius:50%;display:grid;place-items:center;z-index:40;font-weight:800}
 .toast{position:fixed;right:20px;bottom:62px;background:#111713;border:1px solid #445044;padding:12px 15px;border-radius:12px;display:none;z-index:50;color:#dce3dd;font-size:11px}.toast.show{display:block}
-.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}.auth-overlay.show{display:flex}.auth-card{width:min(420px,100%);background:#0c0f0d;border:1px solid #303832;border-radius:22px;padding:25px;box-shadow:0 30px 100px rgba(0,0,0,.55);position:relative}.auth-card h2{font-size:32px;letter-spacing:-.05em;margin:16px 0 5px}.auth-close{position:absolute;right:17px;top:15px;background:transparent;border:0;color:#9da69f;font-size:25px}.auth-switch{border:0;background:transparent;color:var(--lime);font-size:11px;margin-top:15px;padding:0;cursor:pointer}
+.login{background:transparent!important;border:0!important;color:#b4bbb5!important;padding:0!important;border-radius:0!important;font-size:13px!important;font-weight:500!important}.login:hover{color:var(--text)!important}.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.76);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}.auth-overlay.show{display:flex}.auth-card{width:min(440px,100%);background:#0b0e0c;border:1px solid #303832;border-radius:24px;padding:28px;box-shadow:0 30px 100px rgba(0,0,0,.58);position:relative}.auth-card.signup-card{border-color:#41521f;background:linear-gradient(145deg,#0d120b,#0b0e0c)}.auth-card.login-card{border-color:#303832}.auth-card h2{font-size:32px;letter-spacing:-.05em;margin:16px 0 7px}.auth-close{position:absolute;right:17px;top:15px;background:transparent!important;border:0!important;color:#9da69f;font-size:25px;padding:0!important}.auth-switch{border:0;background:transparent;color:var(--lime);font-size:11px;margin-top:15px;padding:0;cursor:pointer}.auth-mode-tag{display:inline-flex;padding:6px 9px;border-radius:999px;font:9px ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}.auth-mode-tag.login-tag{background:#171b18;color:#aab2ac;border:1px solid #2d332f}.auth-mode-tag.signup-tag{background:#182109;color:#d4ff73;border:1px solid #3b4f20}.auth-feature{display:flex;gap:8px;align-items:center;margin-top:12px;color:#8f9891;font-size:10px}.auth-feature:before{content:"✓";color:var(--lime);font-weight:800}
 @media(max-width:900px){.header-inner,.container{width:min(100% - 32px,var(--max))}.main-nav{display:none}.header-actions{margin-left:auto}.login{display:none}.hero{padding-top:42px}.hero-grid{grid-template-columns:1fr;gap:30px}.hero h1{font-size:clamp(46px,13vw,70px)}.hero-panel{min-height:260px}.cards{grid-template-columns:repeat(2,1fr)}.grid2,.buyer-grid,.insights{grid-template-columns:1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}.result-grid{grid-template-columns:1fr}.footer{flex-direction:column}}
 @media(max-width:520px){.cards{grid-template-columns:1fr}.header-inner{width:calc(100% - 24px)}.brand b{font-size:16px}.start{padding:10px 15px}.hero{padding-top:34px}.hero h1{font-size:48px}.hero p{font-size:14px}.section{padding-bottom:45px}}
 </style>
@@ -168,18 +168,22 @@ a{color:inherit;text-decoration:none}.app{min-height:100vh}
 <button class="help" title="Help">?</button>
 <div class="toast" id="toast"></div>
 <div class="auth-overlay" id="authOverlay">
- <div class="auth-card">
+ <div class="auth-card login-card" id="authCard">
   <button class="auth-close" onclick="closeAuth()">×</button>
-  <div class="eyebrow">WasteXOS access</div>
-  <h2 id="authTitle">Log in</h2>
-  <p class="muted" id="authCopy">Access your industrial resource workspace.</p>
+  <div id="authTag" class="auth-mode-tag login-tag">Returning user</div>
+  <h2 id="authTitle">Welcome back.</h2>
+  <p class="muted" id="authCopy">Enter your email and we'll send you a secure one-time sign-in link.</p>
   <form id="authForm">
    <div class="field"><label>Email</label><input id="authEmail" type="email" autocomplete="email" required placeholder="you@company.com"></div>
-   <div class="field" style="margin-top:12px"><label>Password</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Your password"></div>
-   <button class="btn primary" style="width:100%;margin-top:16px" id="authSubmit" type="submit">Log in →</button>
+   <div id="companyField" class="field" style="margin-top:12px;display:none"><label>Company / workspace name</label><input id="companyName" type="text" autocomplete="organization" placeholder="Your manufacturing business"></div>
+   <button class="btn primary" style="width:100%;margin-top:16px" id="authSubmit" type="submit">Send sign-in link →</button>
   </form>
-  <button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">Need an account? Start free</button>
-  <div class="muted" style="font-size:10px;margin-top:14px">Use a real email address. Email confirmation may be required by your Supabase project settings.</div>
+  <div id="authFeatures" style="display:none">
+   <div class="auth-feature">Create your WasteXOS workspace without a password</div>
+   <div class="auth-feature">Use your email to verify access securely</div>
+  </div>
+  <button class="auth-switch" id="authSwitch" onclick="toggleAuthMode()">New to WasteXOS? Start free</button>
+  <div class="muted" style="font-size:10px;margin-top:14px">A secure email link will be sent. Check your inbox to continue.</div>
  </div>
 </div>
 </div>
@@ -202,26 +206,31 @@ function openAuth(mode="login"){authMode=mode;document.getElementById("authOverl
 function closeAuth(){document.getElementById("authOverlay").classList.remove("show")}
 function toggleAuthMode(){authMode=authMode==="login"?"signup":"login";updateAuthUI()}
 function updateAuthUI(){
- document.getElementById("authTitle").textContent=authMode==="login"?"Log in":"Create your WasteXOS account";
- document.getElementById("authCopy").textContent=authMode==="login"?"Access your industrial resource workspace.":"Start tracking scrap, recovery and transaction history.";
- document.getElementById("authSubmit").textContent=authMode==="login"?"Log in →":"Create account →";
- document.getElementById("authSwitch").textContent=authMode==="login"?"Need an account? Start free":"Already have an account? Log in";
+ const signup=authMode==="signup";
+ const card=document.getElementById("authCard");
+ card.className="auth-card "+(signup?"signup-card":"login-card");
+ document.getElementById("authTag").className="auth-mode-tag "+(signup?"signup-tag":"login-tag");
+ document.getElementById("authTag").textContent=signup?"New workspace":"Returning user";
+ document.getElementById("authTitle").textContent=signup?"Create your WasteXOS workspace":"Welcome back.";
+ document.getElementById("authCopy").textContent=signup?"Start your workspace with your company name and email. No password to set.":"Enter your email and we'll send you a secure one-time sign-in link.";
+ document.getElementById("companyField").style.display=signup?"block":"none";
+ document.getElementById("authSubmit").textContent=signup?"Create workspace →":"Send sign-in link →";
+ document.getElementById("authFeatures").style.display=signup?"block":"none";
+ document.getElementById("authSwitch").textContent=signup?"Already have a workspace? Log in":"New to WasteXOS? Start free";
 }
 document.getElementById("authForm").addEventListener("submit",async e=>{
  e.preventDefault();
- const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value;
- const btn=document.getElementById("authSubmit");btn.disabled=true;btn.textContent="Working…";
+ const email=document.getElementById("authEmail").value.trim();
+ const company= document.getElementById("companyName").value.trim();
+ const btn=document.getElementById("authSubmit");btn.disabled=true;btn.textContent="Sending…";
  try{
-  if(authMode==="signup"){
-   const {data,error}=await db.auth.signUp({email,password});
-   if(error)throw error;
-   if(data.session){closeAuth();toast("Account created. Welcome to WasteXOS.");go("dashboard");await load()}
-   else {closeAuth();toast("Account created. Check your email to confirm your account.")}
-  }else{
-   const {error}=await db.auth.signInWithPassword({email,password});
-   if(error)throw error;
-   closeAuth();toast("Logged in successfully.");go("dashboard");await load();
-  }
+  const options=authMode==="signup"
+   ? {shouldCreateUser:true,data:{company_name:company}}
+   : {shouldCreateUser:false};
+  const {error}=await db.auth.signInWithOtp({email,options});
+  if(error)throw error;
+  closeAuth();
+  toast(authMode==="signup"?"Workspace started. Check your email to verify access.":"Sign-in link sent. Check your email.");
  }catch(err){toast(err.message||"Authentication failed.")}
  finally{btn.disabled=false;updateAuthUI()}
 });
